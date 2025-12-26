@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Trắc Nghiệm - An Toàn Bảo Mật Thông Tin</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>📚 Quiz Trắc Nghiệm</h1>
+            <p class="subtitle">An Toàn Bảo Mật Thông Tin</p>
+        </header>
+
+        <div class="chapter-selector" id="chapterSelector">
+            <h2>Chọn Chương</h2>
+            <div class="chapter-grid">
+                <button class="chapter-btn" data-chapter="1">
+                    <span class="chapter-icon">📖</span>
+                    <span class="chapter-title">Chương 1 & 2</span>
+                    <span class="chapter-desc">Tổng quan ATTT & Tấn công</span>
+                </button>
+                <button class="chapter-btn" data-chapter="3">
+                    <span class="chapter-icon">🔐</span>
+                    <span class="chapter-title">Chương 3</span>
+                    <span class="chapter-desc">Mật mã học</span>
+                </button>
+                <button class="chapter-btn" data-chapter="4">
+                    <span class="chapter-icon">🛡️</span>
+                    <span class="chapter-title">Chương 4</span>
+                    <span class="chapter-desc">Điều khiển truy cập</span>
+                </button>
+                <button class="chapter-btn" data-chapter="all">
+                    <span class="chapter-icon">📚</span>
+                    <span class="chapter-title">Tất cả</span>
+                    <span class="chapter-desc">Ôn tập toàn bộ (~202 câu)</span>
+                </button>
+            </div>
+
+            <div class="settings-section">
+                <h3>⚙️ Cài đặt</h3>
+                <div class="setting-item">
+                    <label class="input-label" for="questionCount">
+                        <span class="input-text">📝 Số câu hỏi</span>
+                        <input type="number" id="questionCount" min="1" placeholder="Tất cả"
+                            class="question-count-input">
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label class="toggle-label" for="shuffleToggle">
+                        <span class="toggle-text">🔀 Đảo thứ tự câu hỏi</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="shuffleToggle" checked>
+                            <span class="toggle-slider"></span>
+                        </div>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label class="toggle-label" for="shuffleOptionsToggle">
+                        <span class="toggle-text">🔄 Đảo phương án (A,B,C,D)</span>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="shuffleOptionsToggle">
+                            <span class="toggle-slider"></span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="quiz-container" id="quizContainer" style="display: none;">
+            <div class="quiz-header">
+                <div class="progress-info">
+                    <span id="questionNumber">Câu 1</span> / <span id="totalQuestions">69</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="score-info">
+                    Điểm: <span id="score">0</span>
+                </div>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text" id="questionText"></div>
+                <div class="options-container" id="optionsContainer"></div>
+                <div class="explanation" id="explanation" style="display: none;"></div>
+            </div>
+
+            <div class="quiz-actions">
+                <button class="btn btn-secondary" id="prevBtn" disabled>← Trước</button>
+                <button class="btn btn-primary" id="nextBtn">Tiếp →</button>
+                <button class="btn btn-success" id="submitBtn" style="display: none;">Nộp bài</button>
+            </div>
+        </div>
+
+        <div class="results-container" id="resultsContainer" style="display: none;">
+            <div class="results-card">
+                <h2>🎉 Kết quả</h2>
+                <div class="score-circle">
+                    <span id="finalScore">0</span>%
+                </div>
+                <p class="score-text">Bạn trả lời đúng <span id="correctCount">0</span>/<span id="totalCount">0</span>
+                    câu</p>
+                <div class="results-actions">
+                    <button class="btn btn-primary" id="reviewBtn">Xem lại</button>
+                    <button class="btn btn-secondary" id="restartBtn">Làm lại</button>
+                    <button class="btn btn-outline" id="backToChaptersBtn">Chọn chương khác</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="questions_ch3.js"></script>
+    <script src="questions_ch4.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

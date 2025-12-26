@@ -975,3 +975,23 @@ body {
         font-size: 0.85rem;
     }
 }
+
+/* Version Info Box */
+.version-info {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    padding: 6px 12px;
+    background: rgba(0, 0, 0, 0.4);
+    color: rgba(148, 163, 184, 0.7);
+    font-size: 0.7rem;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    z-index: 100;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.version-info:hover {
+    opacity: 1;
+}

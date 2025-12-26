@@ -33,6 +33,9 @@ class QuizApp {
         this.shuffleToggle = document.getElementById('shuffleToggle');
         this.shuffleOptionsToggle = document.getElementById('shuffleOptionsToggle');
         this.questionCountInput = document.getElementById('questionCount');
+        this.rangeSettings = document.getElementById('rangeSettings');
+        this.questionStartInput = document.getElementById('questionStart');
+        this.questionEndInput = document.getElementById('questionEnd');
     }
 
     initEventListeners() {
@@ -55,6 +58,21 @@ class QuizApp {
         if (this.shuffleOptionsToggle) {
             this.shuffleOptionsToggle.addEventListener('change', (e) => {
                 this.shuffleOptionsEnabled = e.target.checked;
+            });
+        }
+
+        // Question count input - show/hide range settings
+        if (this.questionCountInput) {
+            this.questionCountInput.addEventListener('input', () => {
+                const count = parseInt(this.questionCountInput.value);
+                if (count > 0) {
+                    this.rangeSettings.style.display = 'flex';
+                } else {
+                    this.rangeSettings.style.display = 'none';
+                    // Clear range inputs when hiding
+                    this.questionStartInput.value = '';
+                    this.questionEndInput.value = '';
+                }
             });
         }
 
@@ -105,20 +123,60 @@ class QuizApp {
         // Remove duplicates (in case user selects overlapping chapters)
         this.questions = [...new Map(this.questions.map(q => [q.question, q])).values()];
 
+        // Store unshuffled questions for range selection
+        const originalOrderQuestions = [...this.questions];
+
+        // Get question count and range settings
+        const questionCount = this.questionCountInput ? parseInt(this.questionCountInput.value) : 0;
+        const questionStart = this.questionStartInput ? parseInt(this.questionStartInput.value) : 0;
+        const questionEnd = this.questionEndInput ? parseInt(this.questionEndInput.value) : 0;
+
+        this.lastQuestionCount = questionCount; // Save for retake
+
+        // Handle range selection if user specified a question count
+        if (questionCount > 0) {
+            if (questionStart > 0 && questionEnd > 0) {
+                // User specified a range
+                if (questionStart > questionEnd) {
+                    alert('⚠️ Câu hỏi bắt đầu phải nhỏ hơn hoặc bằng câu hỏi kết thúc!');
+                    return;
+                }
+
+                const rangeCount = questionEnd - questionStart + 1;
+                if (rangeCount !== questionCount) {
+                    alert(`⚠️ Số câu hỏi trong khoảng (${rangeCount} câu) không khớp với số câu hỏi đã chọn (${questionCount} câu)!\n\nVui lòng điều chỉnh lại.`);
+                    return;
+                }
+
+                if (questionEnd > originalOrderQuestions.length) {
+                    alert(`⚠️ Câu hỏi kết thúc (${questionEnd}) vượt quá tổng số câu hỏi (${originalOrderQuestions.length})!`);
+                    return;
+                }
+
+                // Use questions from the specified range (1-indexed to 0-indexed)
+                this.questions = originalOrderQuestions.slice(questionStart - 1, questionEnd);
+            } else if (questionStart > 0 || questionEnd > 0) {
+                // Only one field filled
+                alert('⚠️ Vui lòng nhập cả câu hỏi bắt đầu và kết thúc, hoặc để trống cả hai để chọn ngẫu nhiên!');
+                return;
+            } else {
+                // No range specified - shuffle and pick random questions
+                if (this.shuffleEnabled) {
+                    this.questions = this.shuffleArray(this.questions);
+                }
+                if (questionCount < this.questions.length) {
+                    this.questions = this.questions.slice(0, questionCount);
+                }
+            }
+        } else {
+            // No question limit - just shuffle if enabled
+            if (this.shuffleEnabled) {
+                this.questions = this.shuffleArray(this.questions);
+            }
+        }
+
         // Save original questions for retake
         this.originalQuestions = [...this.questions];
-
-        // Shuffle questions only if enabled
-        if (this.shuffleEnabled) {
-            this.questions = this.shuffleArray(this.questions);
-        }
-
-        // Limit question count if specified
-        const questionCount = this.questionCountInput ? parseInt(this.questionCountInput.value) : 0;
-        this.lastQuestionCount = questionCount; // Save for retake
-        if (questionCount > 0 && questionCount < this.questions.length) {
-            this.questions = this.questions.slice(0, questionCount);
-        }
 
         // Prepare shuffled options for each question if enabled
         this.shuffledOptions = [];

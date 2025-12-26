@@ -56,6 +56,19 @@
                             class="question-count-input">
                     </label>
                 </div>
+                <div class="setting-item range-settings" id="rangeSettings" style="display: none;">
+                    <div class="range-inputs">
+                        <label class="range-label">
+                            <span class="range-text">Từ câu:</span>
+                            <input type="number" id="questionStart" min="1" placeholder="1" class="range-input">
+                        </label>
+                        <label class="range-label">
+                            <span class="range-text">Đến câu:</span>
+                            <input type="number" id="questionEnd" min="1" placeholder="--" class="range-input">
+                        </label>
+                    </div>
+                    <p class="range-hint">Để trống = chọn ngẫu nhiên</p>
+                </div>
                 <div class="setting-item">
                     <label class="toggle-label" for="shuffleToggle">
                         <span class="toggle-text">🔀 Đảo thứ tự câu hỏi</span>

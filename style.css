@@ -698,3 +698,280 @@ body {
 .question-count-input::-webkit-outer-spin-button {
     opacity: 1;
 }
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+
+/* Tablet (768px and below) */
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+
+    .header h1 {
+        font-size: 1.8rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .chapter-selector {
+        padding: 25px 20px;
+    }
+
+    .chapter-selector h2 {
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+    }
+
+    .chapter-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .chapter-card {
+        padding: 20px 15px;
+    }
+
+    .chapter-icon {
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+
+    .chapter-title {
+        font-size: 1rem;
+    }
+
+    .start-quiz-btn {
+        max-width: 100%;
+        padding: 14px 24px;
+        font-size: 1rem;
+    }
+
+    .settings-section {
+        padding: 20px 15px;
+    }
+
+    .toggle-label,
+    .input-label {
+        width: 100%;
+        padding: 12px 15px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .toggle-text,
+    .input-text {
+        font-size: 0.9rem;
+    }
+
+    .quiz-header {
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .progress-info {
+        font-size: 0.9rem;
+        min-width: 80px;
+    }
+
+    .score-badge {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+    }
+
+    .question-card {
+        padding: 25px 20px;
+    }
+
+    .question-text {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+
+    .status-badge {
+        display: block;
+        margin-left: 0;
+        margin-top: 12px;
+    }
+
+    .option {
+        padding: 14px;
+    }
+
+    .option-letter {
+        width: 32px;
+        height: 32px;
+        font-size: 0.85rem;
+    }
+
+    .option-text {
+        font-size: 0.95rem;
+    }
+
+    .navigation-btns {
+        gap: 10px;
+    }
+
+    .btn {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+    }
+
+    .results-card {
+        padding: 30px 20px;
+    }
+
+    .results-card h2 {
+        font-size: 1.5rem;
+    }
+
+    .score-circle {
+        width: 120px;
+        height: 120px;
+        font-size: 2rem;
+    }
+
+    .results-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .results-actions .btn {
+        width: 100%;
+    }
+}
+
+/* Mobile (480px and below) */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .header {
+        padding: 20px 0;
+    }
+
+    .header h1 {
+        font-size: 1.5rem;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+    }
+
+    .chapter-selector {
+        padding: 20px 15px;
+        border-radius: 16px;
+    }
+
+    .chapter-selector h2 {
+        font-size: 1.1rem;
+    }
+
+    .chapter-hint {
+        font-size: 0.85rem;
+    }
+
+    .chapter-card {
+        padding: 18px 12px;
+    }
+
+    .chapter-icon {
+        font-size: 1.8rem;
+    }
+
+    .chapter-title {
+        font-size: 0.95rem;
+    }
+
+    .chapter-desc {
+        font-size: 0.8rem;
+    }
+
+    .chapter-checkbox input:checked+.chapter-card::after {
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
+        top: 8px;
+        right: 8px;
+    }
+
+    .settings-section h3 {
+        font-size: 1rem;
+    }
+
+    .question-card {
+        padding: 20px 15px;
+        border-radius: 16px;
+    }
+
+    .question-text {
+        font-size: 0.95rem;
+    }
+
+    .option {
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .option-letter {
+        width: 28px;
+        height: 28px;
+        font-size: 0.8rem;
+        flex-shrink: 0;
+    }
+
+    .option-text {
+        font-size: 0.9rem;
+    }
+
+    .explanation {
+        font-size: 0.85rem;
+        padding: 12px;
+    }
+
+    .score-circle {
+        width: 100px;
+        height: 100px;
+        font-size: 1.8rem;
+    }
+
+    .score-text {
+        font-size: 1rem;
+    }
+}
+
+/* Very small screens (360px and below) */
+@media (max-width: 360px) {
+    .header h1 {
+        font-size: 1.3rem;
+    }
+
+    .chapter-card {
+        padding: 15px 10px;
+    }
+
+    .toggle-label,
+    .input-label {
+        padding: 10px 12px;
+    }
+
+    .question-text {
+        font-size: 0.9rem;
+    }
+
+    .option {
+        padding: 10px;
+    }
+
+    .option-text {
+        font-size: 0.85rem;
+    }
+
+    .btn {
+        padding: 10px 16px;
+        font-size: 0.85rem;
+    }
+}

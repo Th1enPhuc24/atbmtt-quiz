@@ -17,29 +17,35 @@
         </header>
 
         <div class="chapter-selector" id="chapterSelector">
-            <h2>Chọn Chương</h2>
+            <h2>Chọn Chương Ôn Tập</h2>
+            <p class="chapter-hint">Tick chọn các chương bạn muốn ôn tập</p>
             <div class="chapter-grid">
-                <button class="chapter-btn" data-chapter="1">
-                    <span class="chapter-icon">📖</span>
-                    <span class="chapter-title">Chương 1 & 2</span>
-                    <span class="chapter-desc">Tổng quan ATTT & Tấn công</span>
-                </button>
-                <button class="chapter-btn" data-chapter="3">
-                    <span class="chapter-icon">🔐</span>
-                    <span class="chapter-title">Chương 3</span>
-                    <span class="chapter-desc">Mật mã học</span>
-                </button>
-                <button class="chapter-btn" data-chapter="4">
-                    <span class="chapter-icon">🛡️</span>
-                    <span class="chapter-title">Chương 4</span>
-                    <span class="chapter-desc">Điều khiển truy cập</span>
-                </button>
-                <button class="chapter-btn" data-chapter="all">
-                    <span class="chapter-icon">📚</span>
-                    <span class="chapter-title">Tất cả</span>
-                    <span class="chapter-desc">Ôn tập toàn bộ (~202 câu)</span>
-                </button>
+                <label class="chapter-checkbox">
+                    <input type="checkbox" name="chapter" value="1" checked>
+                    <span class="chapter-card">
+                        <span class="chapter-icon">📖</span>
+                        <span class="chapter-title">Chương 1 & 2</span>
+                        <span class="chapter-desc">Tổng quan ATTT & Tấn công</span>
+                    </span>
+                </label>
+                <label class="chapter-checkbox">
+                    <input type="checkbox" name="chapter" value="3" checked>
+                    <span class="chapter-card">
+                        <span class="chapter-icon">🔐</span>
+                        <span class="chapter-title">Chương 3</span>
+                        <span class="chapter-desc">Mật mã học</span>
+                    </span>
+                </label>
+                <label class="chapter-checkbox">
+                    <input type="checkbox" name="chapter" value="4" checked>
+                    <span class="chapter-card">
+                        <span class="chapter-icon">🛡️</span>
+                        <span class="chapter-title">Chương 4</span>
+                        <span class="chapter-desc">Điều khiển truy cập</span>
+                    </span>
+                </label>
             </div>
+            <button class="start-quiz-btn" id="startQuizBtn">🚀 Bắt đầu làm bài</button>
 
             <div class="settings-section">
                 <h3>⚙️ Cài đặt</h3>
@@ -107,7 +113,8 @@
                     câu</p>
                 <div class="results-actions">
                     <button class="btn btn-primary" id="reviewBtn">Xem lại</button>
-                    <button class="btn btn-secondary" id="restartBtn">Làm lại</button>
+                    <button class="btn btn-success" id="retakeSameBtn">🔄 Làm lại bài này</button>
+                    <button class="btn btn-secondary" id="restartBtn">Làm bài mới</button>
                     <button class="btn btn-outline" id="backToChaptersBtn">Chọn chương khác</button>
                 </div>
             </div>

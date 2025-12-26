@@ -34,10 +34,8 @@ class QuizApp {
     }
 
     initEventListeners() {
-        // Chapter selection buttons
-        document.querySelectorAll('.chapter-btn').forEach(btn => {
-            btn.addEventListener('click', () => this.startQuiz(btn.dataset.chapter));
-        });
+        // Start quiz button
+        document.getElementById('startQuizBtn').addEventListener('click', () => this.startQuizFromSelection());
 
         // Navigation buttons
         this.prevBtn.addEventListener('click', () => this.prevQuestion());
@@ -60,19 +58,49 @@ class QuizApp {
 
         // Results buttons
         document.getElementById('reviewBtn').addEventListener('click', () => this.reviewAnswers());
+        document.getElementById('retakeSameBtn').addEventListener('click', () => this.retakeSameQuiz());
         document.getElementById('restartBtn').addEventListener('click', () => this.restartQuiz());
         document.getElementById('backToChaptersBtn').addEventListener('click', () => this.backToChapters());
     }
 
-    startQuiz(chapter) {
-        // Filter questions by chapter - NO LIMIT for 'all'
-        if (chapter === 'all') {
-            this.questions = [...allQuestions];
-        } else if (chapter === '1') {
-            this.questions = allQuestions.filter(q => q.chapter === 1 || q.chapter === 2);
-        } else {
-            this.questions = allQuestions.filter(q => q.chapter === parseInt(chapter));
+    startQuizFromSelection() {
+        // Get selected chapters
+        const selectedChapters = [];
+        document.querySelectorAll('input[name="chapter"]:checked').forEach(cb => {
+            selectedChapters.push(cb.value);
+        });
+
+        if (selectedChapters.length === 0) {
+            alert('Vui lòng chọn ít nhất một chương để ôn tập!');
+            return;
         }
+
+        // Save config for retake
+        this.lastSelectedChapters = [...selectedChapters];
+
+        this.startQuiz(selectedChapters);
+    }
+
+    startQuiz(chapters) {
+        // chapters is now an array of selected chapter values
+        this.questions = [];
+
+        chapters.forEach(ch => {
+            if (ch === '1') {
+                // Chapter 1 includes chapter 1 and 2
+                const ch12 = allQuestions.filter(q => q.chapter === 1 || q.chapter === 2);
+                this.questions.push(...ch12);
+            } else {
+                const chQuestions = allQuestions.filter(q => q.chapter === parseInt(ch));
+                this.questions.push(...chQuestions);
+            }
+        });
+
+        // Remove duplicates (in case user selects overlapping chapters)
+        this.questions = [...new Map(this.questions.map(q => [q.question, q])).values()];
+
+        // Save original questions for retake
+        this.originalQuestions = [...this.questions];
 
         // Shuffle questions only if enabled
         if (this.shuffleEnabled) {
@@ -81,6 +109,7 @@ class QuizApp {
 
         // Limit question count if specified
         const questionCount = this.questionCountInput ? parseInt(this.questionCountInput.value) : 0;
+        this.lastQuestionCount = questionCount; // Save for retake
         if (questionCount > 0 && questionCount < this.questions.length) {
             this.questions = this.questions.slice(0, questionCount);
         }
@@ -263,20 +292,43 @@ class QuizApp {
         this.updateQuestion();
     }
 
-    restartQuiz() {
+    retakeSameQuiz() {
+        // Retake with the same questions and settings (but re-shuffled if shuffle is on)
         this.currentQuestionIndex = 0;
         this.score = 0;
-        this.userAnswers = new Array(this.questions.length).fill(null);
         this.isReviewMode = false;
 
-        // Shuffle again only if enabled
-        if (this.shuffleEnabled) {
-            this.questions = this.shuffleArray(this.questions);
+        // Use the same questions but optionally re-shuffle
+        if (this.shuffleEnabled && this.originalQuestions) {
+            this.questions = this.shuffleArray([...this.originalQuestions]);
+            // Re-limit if there was a count limit
+            if (this.lastQuestionCount > 0 && this.lastQuestionCount < this.questions.length) {
+                this.questions = this.questions.slice(0, this.lastQuestionCount);
+            }
         }
+
+        // Re-shuffle options if enabled
+        this.shuffledOptions = [];
+        for (let i = 0; i < this.questions.length; i++) {
+            if (this.shuffleOptionsEnabled) {
+                const indices = [0, 1, 2, 3];
+                this.shuffledOptions.push(this.shuffleArray(indices));
+            } else {
+                this.shuffledOptions.push([0, 1, 2, 3]);
+            }
+        }
+
+        this.userAnswers = new Array(this.questions.length).fill(null);
+        this.totalQuestions.textContent = this.questions.length;
 
         this.resultsContainer.style.display = 'none';
         this.quizContainer.style.display = 'block';
         this.updateQuestion();
+    }
+
+    restartQuiz() {
+        // Go back to chapter selection and start fresh
+        this.backToChapters();
     }
 
     backToChapters() {

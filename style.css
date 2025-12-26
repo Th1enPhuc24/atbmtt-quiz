@@ -51,35 +51,72 @@ body {
 
 .chapter-selector h2 {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     font-size: 1.5rem;
     color: #e2e8f0;
+}
+
+.chapter-hint {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
 }
 
 .chapter-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
+    margin-bottom: 25px;
 }
 
-.chapter-btn {
+.chapter-checkbox {
+    cursor: pointer;
+}
+
+.chapter-checkbox input {
+    display: none;
+}
+
+.chapter-card {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 30px 20px;
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
-    cursor: pointer;
     transition: all 0.3s ease;
     color: #fff;
+    position: relative;
 }
 
-.chapter-btn:hover {
-    transform: translateY(-5px);
+.chapter-checkbox input:checked+.chapter-card {
     background: linear-gradient(145deg, rgba(0, 212, 255, 0.2), rgba(123, 44, 191, 0.2));
+    border-color: #00d4ff;
+    box-shadow: 0 5px 30px rgba(0, 212, 255, 0.3);
+}
+
+.chapter-checkbox input:checked+.chapter-card::after {
+    content: "✓";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: linear-gradient(135deg, #00d4ff, #7b2cbf);
+    color: #fff;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.chapter-card:hover {
+    transform: translateY(-3px);
     border-color: rgba(0, 212, 255, 0.5);
-    box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
 }
 
 .chapter-icon {
@@ -97,6 +134,33 @@ body {
     font-size: 0.85rem;
     color: #94a3b8;
     text-align: center;
+}
+
+/* Start Quiz Button */
+.start-quiz-btn {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto 30px;
+    padding: 16px 32px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, #00d4ff, #7b2cbf);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
+}
+
+.start-quiz-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 212, 255, 0.4);
+}
+
+.start-quiz-btn:active {
+    transform: translateY(0);
 }
 
 /* Quiz Container */

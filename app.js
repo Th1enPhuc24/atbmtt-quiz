@@ -28,6 +28,8 @@ class QuizApp {
         this.prevBtn = document.getElementById('prevBtn');
         this.nextBtn = document.getElementById('nextBtn');
         this.submitBtn = document.getElementById('submitBtn');
+        this.retakeFromReviewBtn = document.getElementById('retakeFromReviewBtn');
+        this.backToResultsBtn = document.getElementById('backToResultsBtn');
         this.shuffleToggle = document.getElementById('shuffleToggle');
         this.shuffleOptionsToggle = document.getElementById('shuffleOptionsToggle');
         this.questionCountInput = document.getElementById('questionCount');
@@ -61,6 +63,10 @@ class QuizApp {
         document.getElementById('retakeSameBtn').addEventListener('click', () => this.retakeSameQuiz());
         document.getElementById('restartBtn').addEventListener('click', () => this.restartQuiz());
         document.getElementById('backToChaptersBtn').addEventListener('click', () => this.backToChapters());
+
+        // Review mode buttons
+        this.retakeFromReviewBtn.addEventListener('click', () => this.retakeSameQuiz());
+        this.backToResultsBtn.addEventListener('click', () => this.backToResults());
     }
 
     startQuizFromSelection() {
@@ -223,12 +229,19 @@ class QuizApp {
         // Update navigation buttons
         this.prevBtn.disabled = this.currentQuestionIndex === 0;
 
+        // Hide review mode buttons by default
+        this.retakeFromReviewBtn.style.display = 'none';
+        this.backToResultsBtn.style.display = 'none';
+
         if (this.currentQuestionIndex === this.questions.length - 1) {
             this.nextBtn.style.display = 'none';
             if (!this.isReviewMode) {
                 this.submitBtn.style.display = 'inline-block';
             } else {
                 this.submitBtn.style.display = 'none';
+                // Show retake and back to results buttons on last question in review mode
+                this.retakeFromReviewBtn.style.display = 'inline-block';
+                this.backToResultsBtn.style.display = 'inline-block';
             }
         } else {
             this.nextBtn.style.display = 'inline-block';
@@ -329,6 +342,13 @@ class QuizApp {
     restartQuiz() {
         // Go back to chapter selection and start fresh
         this.backToChapters();
+    }
+
+    backToResults() {
+        // Go back to results screen from review mode
+        this.isReviewMode = false;
+        this.quizContainer.style.display = 'none';
+        this.resultsContainer.style.display = 'block';
     }
 
     backToChapters() {
